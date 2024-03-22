@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "nuitka", "toml"]
+build-backend = "nuitka.distutils.Build"
+
+[project]
+name = "vscode_portable_installer"
+version = "0.1"
+requires-python = "==3.11.*"
+dependencies = [
+    "requests",
+    "easygui"
+]
+
+[project.optional-dependencies] 
+nuitka = [
+    "nuitka"
+]
+
+[tool.poe.tasks]
+standalone = "python -m nuitka --follow-imports --enable-plugin=tk-inter --windows-disable-console --standalone main.py"
+onefile = "python -m nuitka --follow-imports --enable-plugin=tk-inter --windows-disable-console --onefile main.py"
+onefileuncompressed = "python -m nuitka --onefile-no-compression --enable-plugin=tk-inter --windows-disable-console --onefile main.py"
+
+#https://github.com/pypa/sampleproject/blob/main/pyproject.toml
+
